@@ -105,7 +105,6 @@ class PlanItemExecutionForm(forms.ModelForm):
         staff_member = None
         
         # Determine current item area (Rank Name)
-        current_area = self.instance.rank_name if self.instance else None
         
         if self.user:
             try:
@@ -134,7 +133,7 @@ class PlanItemExecutionForm(forms.ModelForm):
                 else:
                     # print(f"DEBUG: No staff or job title found for user {self.user}")
                     pass
-            except Exception as e:
+            except Exception:
                 # print(f"DEBUG: Error getting staff: {e}")
                 pass
 

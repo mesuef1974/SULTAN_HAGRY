@@ -1,7 +1,6 @@
 from django.core.management.base import BaseCommand
 from project_memory.models import ProjectGoal, Technology, ArchitecturalDecision, GuidingPrinciple
 import io
-import os
 
 class Command(BaseCommand):
     help = 'Exports the project memory context for AI model priming. Can write to stdout or a file.'

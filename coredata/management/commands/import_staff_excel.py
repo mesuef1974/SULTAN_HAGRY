@@ -6,7 +6,7 @@ from coredata.models import Staff, JobTitle
 # سنعتمد openpyxl لقراءة ملفات xlsx
 try:
     from openpyxl import load_workbook
-except Exception as e:
+except Exception:
     load_workbook = None
 
 

@@ -1,8 +1,7 @@
 import csv
 import os
-import re
 from django.core.management.base import BaseCommand
-from coredata.models import JobTitle, EvidenceFile, FilePermission, Staff
+from coredata.models import JobTitle, EvidenceFile, FilePermission
 
 class Command(BaseCommand):
     help = 'Creates and links JobTitles, EvidenceFiles, and Permissions.'

@@ -1,10 +1,9 @@
 from rest_framework import viewsets
-from .models import ArchitecturalDecision, ProjectGoal, Technology, GuidingPrinciple
+from .models import ArchitecturalDecision, ProjectGoal, Technology
 from .serializers import (
     ArchitecturalDecisionSerializer, 
     ProjectGoalSerializer, 
-    TechnologySerializer, 
-    GuidingPrincipleSerializer
+    TechnologySerializer
 )
 
 class TechnologyViewSet(viewsets.ReadOnlyModelViewSet):

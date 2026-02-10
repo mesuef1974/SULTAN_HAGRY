@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
-from coredata.models import Staff, JobTitle, EvidenceFile
+from coredata.models import Staff, EvidenceFile
 from django.db.models import Q
 
 class Command(BaseCommand):
@@ -39,8 +39,8 @@ class Command(BaseCommand):
         
         # 3. Check Job Title Link
         if not staff.job_title_link:
-            self.stdout.write(self.style.ERROR(f"❌ Job Title Link is NULL! This is the problem."))
-            self.stdout.write(f"   The system doesn't know the ID of the job title for this user.")
+            self.stdout.write(self.style.ERROR("❌ Job Title Link is NULL! This is the problem."))
+            self.stdout.write("   The system doesn't know the ID of the job title for this user.")
             return
             
         self.stdout.write(f"✅ Job Title Link: {staff.job_title_link.title} (ID: {staff.job_title_link.id})")
@@ -52,7 +52,7 @@ class Command(BaseCommand):
         ).count()
         
         if files_count == 0:
-            self.stdout.write(self.style.ERROR(f"❌ No files found for this job title! (Count: 0)"))
+            self.stdout.write(self.style.ERROR("❌ No files found for this job title! (Count: 0)"))
         else:
             self.stdout.write(self.style.SUCCESS(f"✅ Found {files_count} allowed files for this job title."))
             # List first 5 files

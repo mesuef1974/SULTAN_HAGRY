@@ -7,4 +7,4 @@ class ProjectMemoryConfig(AppConfig):
 
     def ready(self):
         # Import signals so they are connected when the app is ready
-        import project_memory.signals
+        pass

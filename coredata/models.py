@@ -9,10 +9,8 @@ import os
 import uuid
 import io
 from PIL import Image
-import img2pdf
 from django.core.files.base import ContentFile
 from cryptography.fernet import Fernet
-import sys
 from django.contrib.auth.models import Group
 
 # Try to import pypdf for PDF compression (Optional)
@@ -436,7 +434,7 @@ class EvidenceDocument(models.Model):
                     
                     # Update metadata
                     self.original_filename = self.original_filename # Keep original name for reference
-                    self.description = (self.description or "") + f" [Converted to Compressed PDF]"
+                    self.description = (self.description or "") + " [Converted to Compressed PDF]"
                     
                     # Update extension for next steps
                     ext = '.pdf'
@@ -471,7 +469,7 @@ class EvidenceDocument(models.Model):
                     # Replace file if smaller
                     if pdf_bytes.getbuffer().nbytes < self.file.size:
                         self.file.save(self.file.name, ContentFile(pdf_bytes.getvalue()), save=False)
-                        self.description = (self.description or "") + f" [Optimized PDF]"
+                        self.description = (self.description or "") + " [Optimized PDF]"
                 except Exception as e:
                     print(f"PDF optimization failed: {e}")
                     pass

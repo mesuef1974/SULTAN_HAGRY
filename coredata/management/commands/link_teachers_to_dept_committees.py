@@ -1,5 +1,4 @@
 from coredata.models import Staff, Committee
-from django.contrib.auth.models import User
 from django.db.models import Q
 
 def run():

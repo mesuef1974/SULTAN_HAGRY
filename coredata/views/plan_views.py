@@ -2,12 +2,12 @@ from django.shortcuts import render, get_object_or_404
 from django.db.models import Q, Count
 from django.http import HttpResponse, HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
 from django.utils import timezone
 import json
 from django.contrib.auth.models import Group
 
-from ..models import OperationalPlanItems, Committee, Staff, EvidenceDocument
+from ..models import OperationalPlanItems, Committee, Staff
 from ..forms import PlanItemExecutionForm, PlanItemEvaluationForm, EvidenceUploadForm
 
 # The data loading block has been completely removed.
@@ -90,7 +90,7 @@ def plan_list(request):
                             target_subject = key
                             # If we found a match, search for committees with similar keywords
                             # and importantly include 'منسق'
-                            relevant_keywords = keywords + ["منسق"]
+                            keywords + ["منسق"]
                             coord_comms = Committee.objects.filter(
                                 Q(name__icontains="منسق") & 
                                 Q(name__icontains=target_subject)

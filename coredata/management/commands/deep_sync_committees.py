@@ -6,7 +6,6 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.base')
 django.setup()
 
 from coredata.models import Staff, Committee
-from django.db.models import Q
 
 def normalize(text):
     if not text: return ""

@@ -1,10 +1,9 @@
 from django.contrib import admin
 from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
-from django.apps import apps
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from django.contrib.auth.models import User, Group
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import Q, CharField, TextField, Exists, OuterRef, Count
+from django.db.models import Q, Count
 from django.utils.safestring import mark_safe
 from django.utils.dateparse import parse_date
 import json
@@ -33,7 +32,7 @@ class OperationalGoalAdmin(admin.ModelAdmin):
     list_filter = ('strategic_goal__academic_year',)
     search_fields = ('title', 'code')
 from import_export.admin import ImportExportModelAdmin
-from rangefilter.filters import DateRangeFilter, DateTimeRangeFilter
+from rangefilter.filters import DateRangeFilter
 
 # --- Custom Admin Index View to provide Dashboard Data ---
 class CoreDataAdminSite(admin.AdminSite):

@@ -8,7 +8,6 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.base')
 django.setup()
 
 from coredata.models import OperationalPlanItems
-from django.db.models import Q
 
 def run_auto_evaluate():
     print(f"--- بدء عملية التقييم الآلي: {timezone.now().strftime('%Y-%m-%d %H:%M')} ---")

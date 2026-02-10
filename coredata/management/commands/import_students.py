@@ -95,7 +95,7 @@ class Command(BaseCommand):
                         total_skipped += 1
 
             self.stdout.write(self.style.SUCCESS('---------------------------------------------------'))
-            self.stdout.write(self.style.SUCCESS(f'IMPORT COMPLETE'))
+            self.stdout.write(self.style.SUCCESS('IMPORT COMPLETE'))
             self.stdout.write(self.style.SUCCESS(f'Created: {total_created}'))
             self.stdout.write(self.style.SUCCESS(f'Updated: {total_updated}'))
             self.stdout.write(self.style.ERROR(f'Skipped/Failed (mostly empty rows): {total_skipped}'))
