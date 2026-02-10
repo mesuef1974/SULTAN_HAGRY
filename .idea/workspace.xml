@@ -7,14 +7,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ef06134-cb9d-452f-a279-4c98570c3d51" name="Changes" comment="ديجانجو 058 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي" />
+    <list default="true" id="8ef06134-cb9d-452f-a279-4c98570c3d51" name="Changes" comment="ديجانجو 058 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/asgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/Django.Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/docker/Django.Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/memory/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/memory/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements-dev.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements-dev.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.in" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="377" />
+    <option name="cachedIndexableFilesCount" value="429" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -22,6 +31,17 @@
       <list>
         <option value="Python Script" />
       </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform)); sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo, NoAppException&#10;for module in [&quot;main.py&quot;, &quot;wsgi.py&quot;, &quot;app.py&quot;]:&#10;    try: locals().update(ScriptInfo(app_import_path=module, create_app=None).load_app().make_shell_context()); print(&quot;\nFlask App: %s&quot; % app.import_name); break&#10;    except NoAppException: pass">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform)); sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo, NoAppException&#10;for module in [&quot;main.py&quot;, &quot;wsgi.py&quot;, &quot;app.py&quot;]:&#10;    try: locals().update(ScriptInfo(app_import_path=module, create_app=None).load_app().make_shell_context()); print(&quot;\nFlask App: %s&quot; % app.import_name); break&#10;    except NoAppException: pass" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
     </option>
   </component>
   <component name="Git.Settings">
@@ -134,6 +154,9 @@
       <recent name="D:\SULTAN_HAGRY\DATA" />
     </key>
   </component>
+  <component name="ScaScanState">
+    <option name="scaScanTmpDirName" value="aik-sca-scan-1770747793242" />
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -176,6 +199,8 @@
       <workItem from="1770678753343" duration="289000" />
       <workItem from="1770707445935" duration="90000" />
       <workItem from="1770707944501" duration="201000" />
+      <workItem from="1770747324956" duration="444000" />
+      <workItem from="1770747790466" duration="401000" />
     </task>
     <task id="LOCAL؜-٠٠٠٢١" summary="024 البدء - خطة المدرسة التشغيلية 2026&#10;تفعيل وضع الصيانة  &#10;المطور: سفيان مسيف">
       <option name="closed" value="true" />

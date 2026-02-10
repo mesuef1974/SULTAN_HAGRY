@@ -172,6 +172,18 @@
   ],
   "adrLog": [
     {
+      "id": "ADR-007",
+      "date": "2026-02-10",
+      "title": "تأسيس نظام اختبارات التحمل (Stress Testing Framework)",
+      "status": "منفذ"
+    },
+    {
+      "id": "ADR-006",
+      "date": "2026-02-10",
+      "title": "اعتماد Gunicorn/Uvicorn كخادم إنتاج رسمي",
+      "status": "منفذ"
+    },
+    {
       "id": "ADR-005",
       "date": "2026-02-10",
       "title": "تأسيس إطار عمل للاختبارات الآلية (Phase 1)",
