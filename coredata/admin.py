@@ -240,7 +240,7 @@ class CustomUserAdmin(UserAdmin):
     def get_full_name_custom(self, obj):
         try:
             return obj.staff_profile.name
-        except:
+        except Exception:
             full_name = f"{obj.first_name} {obj.last_name}".strip()
             return full_name if full_name else obj.username
 
@@ -248,7 +248,7 @@ class CustomUserAdmin(UserAdmin):
     def get_job_title(self, obj):
         try:
             return obj.staff_profile.job_title
-        except:
+        except Exception:
             return '---'
 
 # Unregister the default User admin and register our custom one
@@ -283,7 +283,7 @@ class CommitteeAdmin(ImportExportModelAdmin, SimpleHistoryAdmin):
             def label_from_instance(obj):
                 try:
                     return f"{obj.staff_profile.name} ({obj.username})"
-                except:
+                except Exception:
                     full_name = f"{obj.first_name} {obj.last_name}".strip()
                     return full_name if full_name else obj.username
             
@@ -319,9 +319,11 @@ class CommitteeAdmin(ImportExportModelAdmin, SimpleHistoryAdmin):
 
 # --- Inlines and Helpers for Staff 360 View ---
 def get_user_committees_html(user):
-    if not user: return "---"
+    if not user:
+        return "---"
     committees = user.committees.all()
-    if not committees.exists(): return "لا ينتمي لأي لجنة حالياً"
+    if not committees.exists():
+        return "لا ينتمي لأي لجنة حالياً"
     html = '<ul style="margin: 0; padding-right: 20px;">'
     for c in committees:
         html += f'<li>{c.name} ({c.code or "بدون كود"})</li>'
@@ -350,7 +352,8 @@ class StaffAdmin(ImportExportModelAdmin, SimpleHistoryAdmin):
 
     @admin.display(description="ملخص الإنجاز")
     def get_execution_summary(self, obj):
-        if not obj.user: return "---"
+        if not obj.user:
+            return "---"
         user_committees = obj.user.committees.all()
         items = OperationalPlanItems.objects.filter(executor_committee__in=user_committees)
         total = items.count()
@@ -536,7 +539,7 @@ class StaffNameFilter(admin.SimpleListFilter):
                     full_name = user.get_full_name()
                     if full_name:
                         name = full_name
-            except:
+            except Exception:
                 pass
             options.append((str(user.id), name))
             
@@ -592,7 +595,7 @@ class EvidenceDocumentAdmin(admin.ModelAdmin):
     def get_user_full_name(self, obj):
         try:
             return obj.user.staff_profile.name
-        except:
+        except Exception:
             full_name = f"{obj.user.first_name} {obj.user.last_name}".strip()
             return full_name if full_name else obj.user.username
 
@@ -642,7 +645,7 @@ class GroupExtensionInline(admin.StackedInline):
             def label_from_instance(obj):
                 try:
                     return f"{obj.staff_profile.name} ({obj.username})"
-                except:
+                except Exception:
                     full_name = f"{obj.first_name} {obj.last_name}".strip()
                     return full_name if full_name else obj.username
             

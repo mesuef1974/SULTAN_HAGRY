@@ -111,7 +111,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 *Made with ❤️ for high-performance data systems.*
 
-# منصة الشحانية — Django + HTMX (Bootstrap)
+## منصة الشحانية — Django + HTMX (Bootstrap)
 
 هذه حزمة انطلاق سريعة لنسخة **Django + HTMX** مشتقة من وضعك الحالي.
 
