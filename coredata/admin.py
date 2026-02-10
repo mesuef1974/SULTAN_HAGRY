@@ -10,7 +10,7 @@ import json
 from django.urls import path
 from .models import (
     Staff, OperationalPlanItems, Committee,
-    JobTitle, EvidenceFile, FilePermission,
+    JobTitle, EvidenceFile,
     AcademicYear, StrategicGoal, OperationalGoal,
     Student, EvidenceDocument, GroupExtension
 )
@@ -483,21 +483,11 @@ class JobTitleAdmin(ImportExportModelAdmin, SimpleHistoryAdmin):
 
 @admin.register(EvidenceFile)
 class EvidenceFileAdmin(ImportExportModelAdmin, SimpleHistoryAdmin):
-    list_display = ('code', 'name', 'get_permissions_count', 'created_at')
+    list_display = ('code', 'name', 'created_at')
     search_fields = ('name', 'code')
     readonly_fields = ('created_at', 'updated_at')
 
-    @admin.display(description='عدد الصلاحيات')
-    def get_permissions_count(self, obj):
-        return obj.permitted_jobs.count()
 
-@admin.register(FilePermission)
-class FilePermissionAdmin(ImportExportModelAdmin):
-    list_display = ('job_title', 'evidence_file', 'can_view', 'created_at')
-    list_filter = ('can_view', 'job_title', 'created_at')
-    search_fields = ('job_title__title', 'evidence_file__name')
-    raw_id_fields = ('job_title', 'evidence_file')
-    readonly_fields = ('created_at', 'updated_at')
 
 @admin.register(Student)
 class StudentAdmin(ImportExportModelAdmin, SimpleHistoryAdmin):

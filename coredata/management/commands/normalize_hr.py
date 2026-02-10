@@ -2,7 +2,7 @@ import os
 import django
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import Group
-from coredata.models import Staff, JobTitle, FilePermission
+from coredata.models import Staff, JobTitle
 
 class Command(BaseCommand):
     help = 'تطهير وتوحيد المسميات الوظيفية وربطها بنظام مجموعات Django (RBAC)'

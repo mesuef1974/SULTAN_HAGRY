@@ -129,27 +129,6 @@ class EvidenceFile(models.Model):
     history = HistoricalRecords()
 
 
-class FilePermission(models.Model):
-    """
-    جدول صلاحيات الملفات.
-    يربط بين المسمى الوظيفي والملفات التي يحق له التعامل معها.
-    """
-    job_title = models.ForeignKey(JobTitle, on_delete=models.CASCADE, related_name='file_permissions', verbose_name="المسمى الوظيفي")
-    evidence_file = models.ForeignKey(EvidenceFile, on_delete=models.CASCADE, related_name='permitted_jobs', verbose_name="الملف")
-    can_view = models.BooleanField("صلاحية العرض", default=True)
-
-    created_at = models.DateTimeField("تاريخ الإنشاء", auto_now_add=True, null=True)
-    updated_at = models.DateTimeField("آخر تحديث", auto_now=True, null=True)
-
-    def __str__(self):
-        return f"{self.job_title} -> {self.evidence_file}"
-
-    class Meta:
-        managed = True
-        db_table = 'file_permissions'
-        verbose_name = "صلاحية ملف"
-        verbose_name_plural = "صلاحيات الملفات"
-        unique_together = ('job_title', 'evidence_file')
 
 
 # --- Custom Encrypted Field ---

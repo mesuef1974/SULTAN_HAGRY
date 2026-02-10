@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from coredata.models import JobTitle, EvidenceFile, FilePermission
+from coredata.models import JobTitle, EvidenceFile
 
 class Command(BaseCommand):
     help = 'Seeds initial HR data (Job Titles, Evidence Files, and Permissions)'
@@ -57,20 +57,5 @@ class Command(BaseCommand):
             "معلم": ["الخطة الأسبوعية", "تحضير الدروس"],
         }
 
-        for job_title, allowed_files in permissions_map.items():
-            job_obj = created_jobs.get(job_title)
-            if not job_obj: continue
-
-            for file_name in allowed_files:
-                ef_obj = created_files.get(file_name)
-                if not ef_obj: continue
-
-                perm, created = FilePermission.objects.get_or_create(
-                    job_title=job_obj,
-                    evidence_file=ef_obj,
-                    defaults={'can_view': True}
-                )
-                if created:
-                    self.stdout.write(f"Permission Mapped: {job_title} -> {file_name}")
 
         self.stdout.write(self.style.SUCCESS("HR Seeding Completed Successfully."))
