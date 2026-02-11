@@ -31,6 +31,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Use simpler storage that doesn't require manifest generation (safer for Vercel)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
+# Media files on Vercel (Read-only fallback)
+# Vercel doesn't support persistent local storage. 
+# For production, consider using AWS S3, Cloudinary, or Azure Storage.
+# We redirect MEDIA_ROOT to /tmp just to avoid startup crashes if something tries to write.
+MEDIA_ROOT = '/tmp/media'
+
 # Database configuration
 # Check if DATABASE_URL is set
 if os.environ.get('DATABASE_URL'):
