@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'coredata',
+    'project_memory',
+    'simple_history',
     'rest_framework',
     'django_htmx',
     'theme',
