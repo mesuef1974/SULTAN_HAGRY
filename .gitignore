@@ -38,6 +38,15 @@ venv/
 ENV/
 .venv/
 
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# IDEs
+.idea/
+.vscode/
+
 # Large Data Files
 *.accdb
 *.mdb

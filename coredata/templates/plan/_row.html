@@ -39,146 +39,86 @@
         </div>
     </td>
 
-    {% if view_role == 'executor' %}
-        <td>{{ it.rank_name|default_if_none:"" }}</td>
-        <td style="font-weight: 700; color: #6b7280;">{{ it.target_no|default_if_none:"" }}</td>
-        <td>{{ it.target|default_if_none:"" }}</td>
-        <td style="font-weight: 700; color: #6b7280;">{{ it.indicator_no|default_if_none:"" }}</td>
-        <td style="font-weight: 700; color: #6b7280;">{{ it.procedure_no|default_if_none:"" }}</td>
-        <td>{{ it.procedure|default_if_none:"" }}</td>
-        <td style="white-space: nowrap;">{{ it.date_range|default_if_none:"" }}</td>
-        <td>
-            {% if it.follow_up == 'تم الإنجاز' %}<span class="badge-success">تم الإنجاز</span>
-            {% elif it.follow_up == 'لم يتم الإنجاز' %}<span class="badge-danger">لم يتم الإنجاز</span>
-            {% elif it.follow_up == 'مؤجل' %}<span class="badge-warning">مؤجل</span>
-            {% else %}<span class="badge-neutral">{{ it.follow_up|default_if_none:"-" }}</span>{% endif %}
-        </td>
-        <td>
+    <td>{{ it.executor|default_if_none:"" }}</td>
+    <td style="font-weight: 700; color: #6b7280;">{{ it.procedure_no|default_if_none:"" }}</td>
+    <td>{{ it.procedure|default_if_none:"" }}</td>
+    <td style="font-weight: 700; color: #6b7280;">{{ it.indicator_no|default_if_none:"" }}</td>
+    <td>{{ it.indicator|default_if_none:"" }}</td>
+    <td>
+        {% if it.evidence_document %}
+            <a href="{{ it.evidence_document.file.url }}" target="_blank" class="text-maroon underline text-xs">الدليل المرفق</a>
+        {% else %}
+            <span class="text-xs text-gray-400">{{ it.evidence_source_file|default_if_none:"-" }}</span>
+        {% endif %}
+    </td>
+    <td>
+        {% if it.evaluation == 'متجقق' or it.evaluation == 'متحقق' %}<span class="badge-success">متحقق</span>
+        {% elif it.evaluation == 'متحقق جزئيا' %}<span class="badge-warning">متحقق جزئياً</span>
+        {% elif it.evaluation == 'غير متحقق' %}<span class="badge-danger">غير متحقق</span>
+        {% else %}<span class="badge-neutral">-</span>{% endif %}
+    </td>
+    <td>{{ it.evidence_source_employee|default_if_none:"" }}</td>
+    <td class="text-center text-xs">{{ it.evaluation_notes|default_if_none:"-"|truncatechars:50 }}</td>
+    <td>
+        <div class="evidence-request-wrapper">
             {% if it.evidence_requested %}
                 {% if it.evidence_document %}
-                    <span class="badge-success pulse-green-badge" title="تم إرفاق الدليل بنجاح - بانتظار مراجعة المقيم">
-                        <i class="fa-solid fa-check-double"></i>
-                        تم الإرفاق
-                    </span>
-                {% else %}
-                    {% if it.status == 'Completed' %}
-                        <button class="attach-btn disabled" 
-                                title="هذا البند مكتمل ولا يمكن رفع أدلة إضافية" 
-                                disabled
-                                style="opacity: 0.6; cursor: not-allowed; animation: none; filter: grayscale(1);">
-                            <i class="fa-solid fa-lock"></i>
-                            تم الإغلاق
-                        </button>
+                    {% if view_role == 'executor' %}
+                        <span class="badge-success pulse-green-badge" title="تم إرفاق الدليل بنجاح - بانتظار مراجعة المقيم">
+                            <i class="fa-solid fa-check-double"></i>
+                            تم الإرفاق
+                        </span>
                     {% else %}
-                        <button hx-get="{% url 'plan_upload_evidence_modal' it.id %}"
-                                hx-target="#modal-container"
-                                hx-swap="innerHTML"
-                                class="attach-btn"
-                                title="المقيم طلب دليل لهذا البند - اضغط للرفع المباشر">
-                            <i class="fa-solid fa-cloud-arrow-up"></i>
-                            ارفق الدليل
-                        </button>
-                    {% endif %}
-                {% endif %}
-            {% else %}
-                <span class="text-gray-300">-</span>
-            {% endif %}
-        </td>
-        <td>
-            {% if it.evidence_document %}
-                <a href="{{ it.evidence_document.file.url }}" target="_blank" class="text-maroon underline text-xs">الدليل المرفق</a>
-            {% else %}
-                <span class="text-xs text-gray-400">{{ it.evidence_source_file|default_if_none:"-" }}</span>
-            {% endif %}
-        </td>
-        <td class="text-center text-xs">{{ it.comments|default_if_none:"-"|truncatechars:50 }}</td>
-        <td>
-            {% if it.status == 'Completed' %}<span class="badge-success">مكتمل</span>
-            {% elif it.status == 'Pending Review' %}<span class="badge-warning">بانتظار المراجعة</span>
-            {% elif it.status == 'Returned' %}<span class="badge-danger">مرفوض / تعديل</span>
-            {% else %}<span class="badge-neutral">{{ it.get_status_display }}</span>{% endif %}
-        </td>
-        <td class="text-center text-xs">{{ it.evaluation_notes|default_if_none:"-"|truncatechars:50 }}</td>
-    {% else %} {# This is the 'evaluator' view for 'لجنة المراجعة الذاتية' #}
-        <td>{{ it.executor|default_if_none:"" }}</td>
-        <td style="font-weight: 700; color: #6b7280;">{{ it.procedure_no|default_if_none:"" }}</td>
-        <td>{{ it.procedure|default_if_none:"" }}</td>
-        <td style="font-weight: 700; color: #6b7280;">{{ it.indicator_no|default_if_none:"" }}</td>
-        <td>{{ it.indicator|default_if_none:"" }}</td>
-        <td class="text-center text-xs">{{ it.comments|default_if_none:"-"|truncatechars:50 }}</td>
-        <td>
-            {% if it.evidence_document %}
-                <a href="{{ it.evidence_document.file.url }}" target="_blank" class="text-maroon underline text-xs">عرض الدليل</a>
-            {% elif it.evidence_source_file %}
-                <span class="text-xs">{{ it.evidence_source_file }}</span>
-            {% else %}
-                <span class="text-xs text-red-500 font-bold">لا يوجد دليل</span>
-            {% endif %}
-        </td>
-        <td>
-            <div class="evidence-request-wrapper">
-                {% if it.evidence_requested %}
-                    {% if it.evidence_document %}
                         <a href="{{ it.evidence_document.file.url }}" target="_blank" class="view-evidence-link pulse-green" title="معاينة الدليل المرفوع - جديد">
                             <i class="fa-solid fa-file-pdf"></i>
                             عرض الدليل (جديد)
                         </a>
+                    {% endif %}
+                {% else %}
+                    {% if it.status == 'Completed' %}
+                        <button class="req-btn active disabled" title="هذا البند مكتمل ولا يمكن تعديل طلب الدليل" disabled style="opacity: 0.6; cursor: not-allowed; animation: none; filter: grayscale(1);">
+                            <i class="fa-solid fa-lock"></i>
+                            تم الطلب (مغلق)
+                        </button>
                     {% else %}
-                        {% if it.status == 'Completed' %}
-                            <button class="req-btn active disabled" 
-                                    title="هذا البند مكتمل ولا يمكن إلغاء طلب الدليل" 
-                                    disabled
-                                    style="opacity: 0.6; cursor: not-allowed; animation: none; filter: grayscale(1);">
-                                <i class="fa-solid fa-lock"></i>
-                                تم الطلب (مغلق)
+                        {% if view_role == 'executor' %}
+                            <button hx-get="{% url 'plan_upload_evidence_modal' it.id %}" hx-target="#modal-container" hx-swap="innerHTML" class="attach-btn" title="المقيم طلب دليل لهذا البند - اضغط للرفع المباشر">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                ارفق الدليل
                             </button>
                         {% else %}
-                            <button hx-post="{% url 'plan_toggle_evidence_request' it.id %}"
-                                    hx-swap="outerHTML"
-                                    hx-target="#row-{{ it.id }}"
-                                    class="req-btn active"
-                                    title="إلغاء طلب الدليل">
+                            <button hx-post="{% url 'plan_toggle_evidence_request' it.id %}" hx-swap="outerHTML" hx-target="#row-{{ it.id }}" class="req-btn active" title="إلغاء طلب الدليل">
                                 <i class="fa-solid fa-hand-holding-medical"></i>
                                 تم الطلب
                             </button>
                         {% endif %}
                     {% endif %}
+                {% endif %}
+            {% else %}
+                {% if view_role == 'executor' %}
+                    <span class="text-gray-300">-</span>
                 {% else %}
                     {% if it.status == 'Completed' %}
-                        <button class="req-btn disabled" 
-                                title="هذا البند مكتمل ولا يمكن طلب أدلة إضافية" 
-                                disabled
-                                style="opacity: 0.6; cursor: not-allowed; filter: grayscale(1);">
+                        <button class="req-btn disabled" title="هذا البند مكتمل ولا يمكن طلب أدلة إضافية" disabled style="opacity: 0.6; cursor: not-allowed; filter: grayscale(1);">
                             <i class="fa-solid fa-lock"></i>
                             طلب دليل (مغلق)
                         </button>
                     {% else %}
-                        <button hx-post="{% url 'plan_toggle_evidence_request' it.id %}"
-                                hx-swap="outerHTML"
-                                hx-target="#row-{{ it.id }}"
-                                class="req-btn"
-                                title="طلب دليل من المنفذ">
+                        <button hx-post="{% url 'plan_toggle_evidence_request' it.id %}" hx-swap="outerHTML" hx-target="#row-{{ it.id }}" class="req-btn" title="طلب دليل من المنفذ">
                             <i class="fa-solid fa-file-circle-plus"></i>
                             طلب دليل
                         </button>
                     {% endif %}
                 {% endif %}
-            </div>
-        </td>
-        <td class="text-center text-xs">{{ it.evaluation_notes|default_if_none:"-"|truncatechars:50 }}</td>
-        <td>
-            {% if it.status == 'Completed' %}<span class="badge-success">مكتمل</span>
-            {% elif it.status == 'Pending Review' %}<span class="badge-warning">بانتظار المراجعة</span>
-            {% elif it.status == 'Returned' %}<span class="badge-danger">مرفوض / تعديل</span>
-            {% else %}<span class="badge-neutral">{{ it.get_status_display }}</span>{% endif %}
-        </td>
-        <td>
-            {% if it.evaluation == 'متجقق' or it.evaluation == 'متحقق' %}<span class="badge-success">متحقق</span>
-            {% elif it.evaluation == 'متحقق جزئيا' %}<span class="badge-warning">متحقق جزئياً</span>
-            {% elif it.evaluation == 'غير متحقق' %}<span class="badge-danger">غير متحقق</span>
-            {% else %}<span class="badge-neutral">-</span>{% endif %}
-        </td>
-    {% endif %}
+            {% endif %}
+        </div>
+    </td>
+    <td>
+        {% if it.status == 'Completed' %}<span class="badge-success">مكتمل</span>
+        {% elif it.status == 'Pending Review' %}<span class="badge-warning">بانتظار المراجعة</span>
+        {% elif it.status == 'Returned' %}<span class="badge-danger">مرفوض / تعديل</span>
+        {% else %}<span class="badge-neutral">{{ it.get_status_display }}</span>{% endif %}
+    </td>
 </tr>
 
 <style>

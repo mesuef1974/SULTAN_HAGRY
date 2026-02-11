@@ -11,10 +11,10 @@
                         hx-target="#plan-table-container"
                         hx-include="#filters-form"
                         hx-push-url="true">
-                    <option value="25" {% if per_page == "25" %}selected{% endif %}>25</option>
-                    <option value="50" {% if per_page == "50" %}selected{% endif %}>50</option>
-                    <option value="100" {% if per_page == "100" %}selected{% endif %}>100</option>
-                    <option value="all" {% if per_page == "all" %}selected{% endif %}>الكل</option>
+                    <option value="25" data-selected="{{ per_page }}">25</option>
+                    <option value="50" data-selected="{{ per_page }}">50</option>
+                    <option value="100" data-selected="{{ per_page }}">100</option>
+                    <option value="all" data-selected="{{ per_page }}">الكل</option>
                 </select>
             </div>
             <span class="results-count">
@@ -59,31 +59,29 @@
                     <th style="width: 40px;"></th> <!-- Actions -->
 
                     {% if view_role == 'executor' %}
-                        <th style="width: 10%;">المجال</th>
-                        <th style="width: 50px;"># الهدف</th>
-                        <th style="width: 15%;">الهدف</th>
-                        <th style="width: 50px;"># مؤشر</th>
-                        <th style="width: 50px;"># اجراء</th>
+                        <th style="width: 10%;">المنفذ</th>
+                        <th style="width: 40px;"># الاجراء</th>
                         <th style="width: 15%;">الاجراء</th>
-                        <th style="width: 80px;">زمن التنفيذ</th>
-                        <th style="width: 90px;">المتابعة</th>
-                        <th style="width: 90px;">طلب دليل</th>
+                        <th style="width: 40px;"># المؤشر</th>
+                        <th style="width: 15%;">المؤشر</th>
                         <th style="width: 10%;">موقع الدليل</th>
-                        <th style="width: 10%;">ملاحظات التنفيذ</th>
+                        <th style="width: 80px;">التقييم</th>
+                        <th style="width: 10%;">المقييم</th>
+                        <th style="width: 12%;">ملاحظات المراجعة</th>
+                        <th style="width: 80px;">طلب دليل</th>
                         <th style="width: 90px;">قرار اللجنة</th>
-                        <th style="width: 15%;">ملاحظات المراجعة</th>
                     {% else %} {# This is the 'evaluator' view for 'لجنة المراجعة الذاتية' #}
                         <th style="width: 10%;">المنفذ</th>
-                        <th style="width: 40px;"># اجراء</th>
+                        <th style="width: 40px;"># الاجراء</th>
                         <th style="width: 15%;">الاجراء</th>
-                        <th style="width: 40px;"># مؤشر</th>
+                        <th style="width: 40px;"># المؤشر</th>
                         <th style="width: 15%;">المؤشر</th>
-                        <th style="width: 12%;">ملاحظات التنفيذ</th>
                         <th style="width: 10%;">موقع الدليل</th>
-                        <th style="width: 80px;">طلب الدليل</th>
+                        <th style="width: 80px;">التقييم</th>
+                        <th style="width: 10%;">المقييم</th>
                         <th style="width: 12%;">ملاحظات المراجعة</th>
+                        <th style="width: 80px;">طلب دليل</th>
                         <th style="width: 90px;">قرار اللجنة</th>
-                        <th style="width: 80px;">التقييم النهائي</th>
                     {% endif %}
                 </tr>
             </thead>
@@ -92,7 +90,7 @@
                     {% include "plan/_row.html" with it=item view_role=view_role %}
                 {% empty %}
                 <tr>
-                    <td colspan="{% if view_role == 'executor' %}13{% else %}11{% endif %}" style="text-align: center; padding: 3rem; color: #6b7280;">
+                    <td colspan="12" style="text-align: center; padding: 3rem; color: #6b7280;">
                         <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                             <span>لا توجد نتائج تطابق بحثك.</span>

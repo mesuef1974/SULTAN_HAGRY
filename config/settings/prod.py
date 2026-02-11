@@ -26,10 +26,10 @@ except ValueError:
 # Vercel specific static files configuration
 # In Vercel, we should not try to create directories at runtime.
 # The build process should handle collectstatic.
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 # Use simpler storage that doesn't require manifest generation (safer for Vercel)
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files on Vercel (Read-only fallback)
 # Vercel doesn't support persistent local storage. 

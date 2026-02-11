@@ -8,18 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ef06134-cb9d-452f-a279-4c98570c3d51" name="Changes" comment="060">
-      <change afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/@vercel/speed-insights/.eslintrc.cjs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/@vercel/speed-insights/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/@vercel/speed-insights/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/@vercel/speed-insights/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/@vercel/speed-insights/test.setup.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/@vercel/speed-insights/tsconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/@vercel/speed-insights/tsup.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/@vercel/speed-insights/vitest.config.mts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coredata/templates/plan/_row.html" beforeDir="false" afterPath="$PROJECT_DIR$/coredata/templates/plan/_row.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coredata/templates/plan/_table.html" beforeDir="false" afterPath="$PROJECT_DIR$/coredata/templates/plan/_table.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +18,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="429" />
+    <option name="cachedIndexableFilesCount" value="432" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -52,6 +43,18 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "mesuef1974"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/mesuef1974/SULTAN_HAGRY.git",
+    "accountId": "78df67f3-b79f-4ed8-aa18-445035d25a9d"
+  }
+}]]></component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;configuredContexts&quot;: [
@@ -205,6 +208,7 @@
       <workItem from="1770707944501" duration="201000" />
       <workItem from="1770747324956" duration="444000" />
       <workItem from="1770747790466" duration="3123000" />
+      <workItem from="1770812266734" duration="1908000" />
     </task>
     <task id="LOCAL؜-٠٠٠٢٢" summary="025 البدء - خطة المدرسة التشغيلية 2026&#10; ارابيسك&#10; المطور: سفيان مسيف">
       <option name="closed" value="true" />
