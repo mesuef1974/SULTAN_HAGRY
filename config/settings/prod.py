@@ -17,19 +17,18 @@ CSRF_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = False 
 
 # WhiteNoise configuration for static files
-# Use a simpler storage backend to avoid "MissingFileError" during build
 try:
     MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 except ValueError:
     pass # Middleware might already be there
 
+# Vercel specific static files configuration
+# In Vercel, we should not try to create directories at runtime.
+# The build process should handle collectstatic.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # Use simpler storage that doesn't require manifest generation (safer for Vercel)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-
-# Ensure static root exists
-if not os.path.exists(STATIC_ROOT):
-    os.makedirs(STATIC_ROOT)
 
 # Database configuration
 import dj_database_url
@@ -47,6 +46,7 @@ if os.environ.get('DATABASE_URL'):
     except Exception as e:
         print(f"Error configuring database: {e}")
         # Fallback to SQLite if DB config fails (so the app at least starts)
+        # Note: This will likely fail on Vercel runtime due to read-only FS, but useful for build
         DATABASES = {
             'default': {
                 'ENGINE': 'django.db.backends.sqlite3',
