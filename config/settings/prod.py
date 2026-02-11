@@ -4,6 +4,7 @@ import os
 import dj_database_url
 
 # FORCE DEBUG to be False in production, but allow override for troubleshooting
+# IMPORTANT: Set DJANGO_DEBUG=True in Vercel Environment Variables to see errors
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
 # Allow all hosts for Vercel deployment
@@ -24,24 +25,16 @@ except ValueError:
     pass # Middleware might already be there
 
 # Vercel specific static files configuration
-# In Vercel, we should not try to create directories at runtime.
-# The build process should handle collectstatic.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
-
-# Use simpler storage that doesn't require manifest generation (safer for Vercel)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files on Vercel (Read-only fallback)
-# Vercel doesn't support persistent local storage. 
-# For production, consider using AWS S3, Cloudinary, or Azure Storage.
-# We redirect MEDIA_ROOT to /tmp just to avoid startup crashes if something tries to write.
 MEDIA_ROOT = '/tmp/media'
 
 # Database configuration
 # Check if DATABASE_URL is set
 if os.environ.get('DATABASE_URL'):
     try:
-        # Simplified database config for maximum compatibility
         db_config = dj_database_url.config(
             default=os.environ.get('DATABASE_URL'),
             conn_max_age=600,
@@ -52,19 +45,21 @@ if os.environ.get('DATABASE_URL'):
         }
     except Exception as e:
         print(f"Error configuring database: {e}")
-        # Fallback to SQLite if DB config fails (so the app at least starts)
+        # Fallback to SQLite in memory or tmp to avoid read-only errors
         DATABASES = {
             'default': {
                 'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+                'NAME': '/tmp/db.sqlite3',
             }
         }
 else:
-    print("WARNING: DATABASE_URL not found, using SQLite")
+    print("WARNING: DATABASE_URL not found, using SQLite in /tmp")
+    # Vercel file system is read-only except for /tmp
+    # We copy the local db to tmp if it exists, or create new one
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            'NAME': '/tmp/db.sqlite3',
         }
     }
 
@@ -86,6 +81,11 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'INFO',
             'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'level': 'ERROR',
+            'propagate': False,
         },
     },
 }
