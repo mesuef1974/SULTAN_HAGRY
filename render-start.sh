@@ -3,15 +3,13 @@
 # Exit on error
 set -o errexit
 
+echo "==> Ensuring Migrations are up to date..."
+python manage.py makemigrations --noinput
+python manage.py makemigrations coredata --noinput
+python manage.py makemigrations project_memory --noinput
+
 echo "==> Running Migrations..."
-# First, try to migrate normally
-python manage.py migrate --noinput || {
-    echo "==> Standard migration failed, attempting to fix migration graph..."
-    # If it fails due to NodeNotFoundError, we might need to fake some nodes 
-    # but usually, just having the apps in INSTALLED_APPS fixes it.
-    # We will try a second time after ensuring apps are loaded.
-    python manage.py migrate --noinput
-}
+python manage.py migrate --noinput
 
 echo "==> Creating Superuser..."
 python manage.py initadmin

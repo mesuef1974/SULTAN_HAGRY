@@ -10,13 +10,17 @@ if _db_url and '+psycopg2' in _db_url:
 # --- PRODUCTION SETTINGS FOR RENDER (PostgreSQL) ---
 
 # Turn off DEBUG for production once verified
-DEBUG = True 
+DEBUG = False
 
 # Set a proper SECRET_KEY from environment variable
-SECRET_KEY = os.environ.get('SECRET_KEY', SECRET_KEY)
+SECRET_KEY = os.environ.get('SECRET_KEY', 'your-fallback-secret-key-change-me')
 
 # Use the hostname provided by Render
-ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME', '*')]
+ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'school-sh.onrender.com'), 'localhost', '127.0.0.1']
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://' + os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'school-sh.onrender.com'),
+]
 
 # Database configuration: Use DATABASE_URL from Render (PostgreSQL)
 # Fallback to local SQLite if DATABASE_URL is not set
