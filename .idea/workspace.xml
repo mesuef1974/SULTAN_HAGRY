@@ -9,6 +9,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8ef06134-cb9d-452f-a279-4c98570c3d51" name="Changes" comment="061 تفعيل الموقع اون لاين الان">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/settings/prod.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings/prod.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/render-start.sh" beforeDir="false" afterPath="$PROJECT_DIR$/render-start.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,7 +208,7 @@
       <workItem from="1770707944501" duration="201000" />
       <workItem from="1770747324956" duration="444000" />
       <workItem from="1770747790466" duration="3123000" />
-      <workItem from="1770812266734" duration="25204000" />
+      <workItem from="1770812266734" duration="27032000" />
     </task>
     <task id="LOCAL؜-٠٠٠٢٣" summary="ديجانجو 002">
       <option name="closed" value="true" />
