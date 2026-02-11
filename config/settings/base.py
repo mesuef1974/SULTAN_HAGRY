@@ -21,7 +21,7 @@ SECRET_KEY = env('SECRET_KEY', default='dev-secret-key-change-me')
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
-# --- TESTING WITH A CLEAN, EMPTY APP ---
+# --- USING THE NEW CLEAN APP, NOW RENAMED TO COREDATA ---
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'diagnostics', # Using the new empty app
+    'diagnostics', # The folder is still named diagnostics, but the app is now 'coredata'
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,7 @@
 
 from django.apps import AppConfig
 
-class DiagnosticsConfig(AppConfig):
+# Renaming this app to coredata
+class CoredataConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'diagnostics'
+    name = 'coredata'
