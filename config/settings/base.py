@@ -21,7 +21,7 @@ SECRET_KEY = env('SECRET_KEY', default='dev-secret-key-change-me')
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
-# --- REBUILDING THE APP ---
+# --- DISABLING SIMPLE_HISTORY ---
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'diagnostics', # Our new clean app
-    'simple_history', # Dependency for models
+    # 'simple_history', # DISABLED
 ]
 
 MIDDLEWARE = [
@@ -43,7 +43,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'simple_history.middleware.HistoryRequestMiddleware', # Dependency for models
+    # 'simple_history.middleware.HistoryRequestMiddleware', # DISABLED
 ]
 
 ROOT_URLCONF = 'config.urls'

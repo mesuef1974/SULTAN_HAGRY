@@ -2,7 +2,7 @@
 from django.db import models
 from django.conf import settings
 from django.db.models import Max
-from simple_history.models import HistoricalRecords
+# from simple_history.models import HistoricalRecords # DISABLED
 import datetime
 import hashlib
 import base64
@@ -45,7 +45,7 @@ class JobTitle(models.Model):
     is_canonical = models.BooleanField("مسمى معتمد/رئيسي", default=False)
     created_at = models.DateTimeField("تاريخ الإنشاء", auto_now_add=True, null=True)
     updated_at = models.DateTimeField("آخر تحديث", auto_now=True, null=True)
-    history = HistoricalRecords()
+    # history = HistoricalRecords() # DISABLED
     def __str__(self): return self.title
     class Meta: verbose_name = "مسمى وظيفي"; verbose_name_plural = "المسميات الوظيفية"
 
@@ -55,7 +55,7 @@ class EvidenceFile(models.Model):
     description = models.TextField("وصف الملف", blank=True, null=True)
     created_at = models.DateTimeField("تاريخ الإنشاء", auto_now_add=True, null=True)
     updated_at = models.DateTimeField("آخر تحديث", auto_now=True, null=True)
-    history = HistoricalRecords()
+    # history = HistoricalRecords() # DISABLED
     def __str__(self): return self.name
     class Meta: verbose_name = "تصنيف دليل"; verbose_name_plural = "تصنيفات الأدلة"
 
@@ -72,7 +72,7 @@ class Staff(models.Model):
     account_no = EncryptedCharField("رقم الحساب", blank=True, null=True)
     created_at = models.DateTimeField("تاريخ الإنشاء", auto_now_add=True, null=True)
     updated_at = models.DateTimeField("آخر تحديث", auto_now=True, null=True)
-    history = HistoricalRecords()
+    # history = HistoricalRecords() # DISABLED
     def __str__(self): return self.name
     class Meta: verbose_name = "موظف"; verbose_name_plural = "الموظفون"
 
@@ -109,7 +109,7 @@ class Committee(models.Model):
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name="committees")
     created_at = models.DateTimeField("تاريخ الإنشاء", auto_now_add=True, null=True)
     updated_at = models.DateTimeField("آخر تحديث", auto_now=True, null=True)
-    history = HistoricalRecords()
+    # history = HistoricalRecords() # DISABLED
     def __str__(self): return self.name
     class Meta: verbose_name = "لجنة"; verbose_name_plural = "اللجان"
 
@@ -163,7 +163,7 @@ class OperationalPlanItems(models.Model):
     evaluator_committee = models.ForeignKey(Committee, on_delete=models.SET_NULL, verbose_name="اللجنة المقيمة", related_name="evaluated_plan_items", blank=True, null=True)
     created_at = models.DateTimeField("تاريخ الإنشاء", auto_now_add=True, null=True)
     updated_at = models.DateTimeField("آخر تحديث", auto_now=True, null=True)
-    history = HistoricalRecords()
+    # history = HistoricalRecords() # DISABLED
     def __str__(self): return self.code or f"بند {self.id}"
     class Meta: verbose_name = "بند خطة تشغيلية"; verbose_name_plural = "بنود الخطة التشغيلية"
 
@@ -182,7 +182,7 @@ class Student(models.Model):
     parent_email = models.EmailField("بريد ولي الأمر", blank=True, null=True)
     created_at = models.DateTimeField("تاريخ الإضافة", auto_now_add=True)
     updated_at = models.DateTimeField("آخر تحديث", auto_now=True)
-    history = HistoricalRecords()
+    # history = HistoricalRecords() # DISABLED
     def __str__(self): return f"{self.name_ar} ({self.grade}/{self.section})"
     class Meta: verbose_name = "طالب"; verbose_name_plural = "الطلاب"; ordering = ['grade', 'section', 'name_ar']
 
