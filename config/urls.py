@@ -1,24 +1,15 @@
 
-from django.conf import settings
-from django.contrib import admin
-from django.urls import path, include
-from django.conf.urls.i18n import i18n_patterns
-from django.conf.urls.static import static
+from django.http import HttpResponse
+from django.urls import path
 
-# URLs that should not be translated
+# --- DEBUGGING STEP ---
+# This is a temporary, minimal URL configuration to isolate the startup crash.
+# It bypasses all other apps, models, and views.
+
+def health_check_view(request):
+    return HttpResponse("Minimal URL is working. The crash is in the original urls.py or an included app.", status=200)
+
 urlpatterns = [
-    path('i18n/', include('django.conf.urls.i18n')),
-    path('admin/', admin.site.urls),
-    path('health/', include('health_check.urls')),
-    path('api/memory/', include('project_memory.urls')), # Added Memory API
+    path('', health_check_view),
+    # We are intentionally not including admin, i18n, or any other app's URLs for now.
 ]
-
-# URLs that should be translated
-urlpatterns += i18n_patterns(
-    path('', include('coredata.urls')),
-    # Add other app URLs here if they need to be translated
-)
-
-# Serve media files in development
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
