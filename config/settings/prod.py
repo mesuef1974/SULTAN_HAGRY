@@ -1,6 +1,7 @@
 
 from .base import *
 import os
+import dj_database_url
 
 # FORCE DEBUG to be False in production, but allow override for troubleshooting
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
@@ -31,22 +32,21 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Database configuration
-import dj_database_url
-
 # Check if DATABASE_URL is set
 if os.environ.get('DATABASE_URL'):
     try:
+        # Simplified database config for maximum compatibility
+        db_config = dj_database_url.config(
+            default=os.environ.get('DATABASE_URL'),
+            conn_max_age=600,
+            ssl_require=True
+        )
         DATABASES = {
-            'default': dj_database_url.config(
-                default=os.environ.get('DATABASE_URL'),
-                conn_max_age=600,
-                conn_health_checks=True,
-            )
+            'default': db_config
         }
     except Exception as e:
         print(f"Error configuring database: {e}")
         # Fallback to SQLite if DB config fails (so the app at least starts)
-        # Note: This will likely fail on Vercel runtime due to read-only FS, but useful for build
         DATABASES = {
             'default': {
                 'ENGINE': 'django.db.backends.sqlite3',
