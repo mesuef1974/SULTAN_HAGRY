@@ -1,6 +1,7 @@
 
 from pathlib import Path
 import environ
+import os
 from django.utils.translation import gettext_lazy as _
 
 # Initialize environ
@@ -9,9 +10,15 @@ env = environ.Env(
 )
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-environ.Env.read_env(BASE_DIR / '.env')
 
-SECRET_KEY = env('DJANGO_SECRET_KEY', default='dev-secret-key-change-me')
+# Read .env file only if it exists
+env_file = BASE_DIR / '.env'
+if env_file.exists():
+    environ.Env.read_env(env_file)
+
+# Use environment variable for SECRET_KEY, fallback to dev key only if not set
+SECRET_KEY = env('SECRET_KEY', default=env('DJANGO_SECRET_KEY', default='dev-secret-key-change-me'))
+
 DEBUG = env('DJANGO_DEBUG', default=True)
 ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['127.0.0.1', 'localhost'])
 
