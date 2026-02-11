@@ -21,9 +21,9 @@ SECRET_KEY = env('SECRET_KEY', default='dev-secret-key-change-me')
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
-# --- MINIMAL INSTALLED APPS ---
+# --- RE-ENABLING APPS ---
 INSTALLED_APPS = [
-    # 'jazzmin', # Disabled for debugging
+    # 'jazzmin', # Still disabled
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -31,34 +31,36 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    # Third-party apps - ALL DISABLED
-    # 'rest_framework',
-    # 'django_htmx',
-    # 'tailwind',
-    # 'theme',
-    # 'rangefilter',
-    # 'import_export',
-    # 'health_check',
-    # 'health_check.db',
-    # 'health_check.cache',
-    # 'health_check.storage',
-    # 'simple_history',
+    # Third-party apps
+    'rest_framework',
+    'django_htmx',
+    # 'tailwind', # Still disabled
+    'theme',
+    'rangefilter',
+    'import_export',
+    'health_check',
+    'health_check.db',
+    'health_check.cache',
+    'health_check.storage',
+    'simple_history',
 
-    # Local apps - ALL DISABLED
-    # 'coredata',
-    # 'project_memory',
+    # Local apps
+    'coredata',
+    'project_memory',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'simple_history.middleware.HistoryRequestMiddleware', # Disabled
-    # 'django_htmx.middleware.HtmxMiddleware', # Disabled
+    'simple_history.middleware.HistoryRequestMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
+
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -66,7 +68,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'coredata' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -84,7 +86,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database is handled in prod.py
 
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+LANGUAGES = [
+    ('en', _('English')),
+    ('ar', _('Arabic')),
+]
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
+TIME_ZONE = 'Asia/Qatar'
 USE_I18N = True
 USE_TZ = True
 
