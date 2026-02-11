@@ -21,9 +21,8 @@ SECRET_KEY = env('SECRET_KEY', default='dev-secret-key-change-me')
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
-# --- ISOLATING THE CRASHING APP ---
+# --- DISABLING ALL LOCAL APPS TO GET A STABLE BASE ---
 INSTALLED_APPS = [
-    # 'jazzmin', # Still disabled
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -31,21 +30,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    # Third-party apps - DISABLED AGAIN
-    # 'rest_framework',
-    # 'django_htmx',
-    # 'theme',
-    # 'rangefilter',
-    # 'import_export',
-    # 'health_check',
-    # 'health_check.db',
-    # 'health_check.cache',
-    # 'health_check.storage',
-    # 'simple_history',
-
-    # Local apps
-    'coredata',
-    # 'project_memory', # REMOVED as requested
+    # 'coredata', # DISABLED
+    # 'project_memory', # DISABLED
 ]
 
 MIDDLEWARE = [
@@ -57,8 +43,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'simple_history.middleware.HistoryRequestMiddleware', # Disabled
-    # 'django_htmx.middleware.HtmxMiddleware', # Disabled
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -66,7 +50,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'coredata' / 'templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
