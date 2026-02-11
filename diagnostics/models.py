@@ -2,30 +2,13 @@
 from django.db import models
 from django.contrib.auth.models import Group
 from django.conf import settings
-import hashlib
-import base64
-from cryptography.fernet import Fernet
+# import hashlib # DISABLED
+# import base64 # DISABLED
+# from cryptography.fernet import Fernet # DISABLED
 
-# --- LAZY KEY LOADING ---
-def get_fernet():
-    key = hashlib.sha256(settings.SECRET_KEY.encode()).digest()
-    return Fernet(base64.urlsafe_b64encode(key))
-
-class EncryptedCharField(models.TextField):
-    def from_db_value(self, value, expression, connection):
-        if value is None: return value
-        try:
-            return get_fernet().decrypt(value.encode()).decode()
-        except Exception:
-            return value
-
-    def to_python(self, value):
-        if value is None or isinstance(value, str): return value
-        return get_fernet().decrypt(value.encode()).decode()
-
-    def get_prep_value(self, value):
-        if value is None: return value
-        return get_fernet().encrypt(str(value).encode()).decode()
+# --- ENCRYPTION DISABLED FOR DEBUGGING ---
+# Using a simple TextField as a placeholder.
+EncryptedCharField = models.TextField
 
 class AcademicYear(models.Model):
     name = models.CharField("السنة الدراسية", max_length=20, unique=True)
