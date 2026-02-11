@@ -8,8 +8,8 @@ import hashlib
 import base64
 import os
 import uuid
-import io
-from PIL import Image
+# import io # DISABLED
+# from PIL import Image # DISABLED
 from django.core.files.base import ContentFile
 from cryptography.fernet import Fernet
 from django.contrib.auth.models import Group
