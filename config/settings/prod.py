@@ -1,71 +1,58 @@
+
 from .base import *
 import os
 import dj_database_url
 
-# Normalize DATABASE_URL if it uses SQLAlchemy-style scheme like 'postgresql+psycopg2'
-_db_url = os.environ.get('DATABASE_URL')
-if _db_url and '+psycopg2' in _db_url:
-    os.environ['DATABASE_URL'] = _db_url.replace('+psycopg2', '')
+# --- PRODUCTION SETTINGS ---
 
-# --- PRODUCTION SETTINGS FOR RENDER (PostgreSQL) ---
+# 1. Security
+DEBUG = False # Never run with debug on in production
+SECRET_KEY = os.environ.get('SECRET_KEY') # Must be set in Vercel env vars
 
-# Turn off DEBUG for production once verified
-DEBUG = True
+ALLOWED_HOSTS = ['*'] # Vercel handles routing, but ideally list specific domains
 
-# Set a proper SECRET_KEY from environment variable
-SECRET_KEY = os.environ.get('SECRET_KEY', 'your-fallback-secret-key-change-me')
-
-# Use the hostname provided by Render
-ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'school-sh.onrender.com'), 'localhost', '127.0.0.1']
-
-CSRF_TRUSTED_ORIGINS = [
-    'https://' + os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'school-sh.onrender.com'),
-]
-
-# Database configuration: Use DATABASE_URL from Render (PostgreSQL)
-# Fallback to local SQLite if DATABASE_URL is not set
+# 2. Database (PostgreSQL)
+# We use dj_database_url to parse the DATABASE_URL env var
 DATABASES = {
     'default': dj_database_url.config(
-        default=f"sqlite:///{os.path.join(BASE_DIR, 'db.sqlite3')}",
-        conn_max_age=600
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+        conn_health_checks=True,
+        ssl_require=True,
     )
 }
 
-# Static files configuration with WhiteNoise
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# 3. Static Files (WhiteNoise)
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Ensure WhiteNoise is in Middleware
-if 'whitenoise.middleware.WhiteNoiseMiddleware' not in MIDDLEWARE:
-    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+# 4. Media Files
+# Vercel filesystem is ephemeral. We need external storage (S3/Cloudinary).
+# For now, we warn that local media will be lost.
+MEDIA_ROOT = '/tmp/media' 
 
-# Logging configuration to see errors in Render Logs
+# 5. Security Headers
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 31536000 # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# 6. Logging
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {message}',
-            'style': '{',
-        },
-    },
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
-            'formatter': 'verbose',
         },
     },
     'root': {
         'handlers': ['console'],
-        'level': 'INFO',
+        'level': 'INFO', # Log info and above in production
     },
 }
-
-# Security settings for production
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = os.environ.get('DJANGO_SECURE_SSL_REDIRECT', 'False') == 'True'
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
-# --- END RENDER SETTINGS ---
