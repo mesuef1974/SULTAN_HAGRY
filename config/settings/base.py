@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'coredata',
     'project_memory',
     'simple_history',
+    'diagnostics',
     'rest_framework',
     'django_htmx',
     'theme',

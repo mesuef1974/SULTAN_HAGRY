@@ -105,7 +105,7 @@ def plan_list(request):
 
     # --- Filtering Logic ---
     year = request.GET.get('year')
-    if year: qs = qs.filter(year=year)
+    if year: qs = qs.filter(academic_year__name=year)
 
     rank_name = request.GET.get('rank_name')
     if rank_name: qs = qs.filter(rank_name=rank_name)
@@ -146,7 +146,7 @@ def plan_list(request):
         ).distinct()
     
     # --- Dropdown options (based on the filtered queryset 'qs') ---
-    all_years = qs.values_list('year', flat=True).distinct().order_by('year')
+    all_years = qs.values_list('academic_year__name', flat=True).distinct().order_by('academic_year__name')
     all_rank_names = qs.values_list('rank_name', flat=True).distinct().order_by('rank_name')
     all_executors = qs.values_list('executor', flat=True).distinct().order_by('executor')
     all_date_ranges = qs.values_list('date_range', flat=True).distinct().order_by('date_range')

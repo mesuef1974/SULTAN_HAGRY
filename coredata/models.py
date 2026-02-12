@@ -60,6 +60,7 @@ class JobTitle(models.Model):
     def __str__(self):
         return self.title
     class Meta:
+        db_table = 'coredata_jobtitle'
         verbose_name = "مسمى وظيفي"
         verbose_name_plural = "المسميات الوظيفية"
 
@@ -95,6 +96,7 @@ class Staff(models.Model):
     def __str__(self):
         return self.name
     class Meta:
+        db_table = 'coredata_staff'
         verbose_name = "موظف"
         verbose_name_plural = "الموظفون"
 
@@ -149,6 +151,7 @@ class Committee(models.Model):
     def __str__(self):
         return self.name
     class Meta:
+        db_table = 'coredata_committee'
         verbose_name = "لجنة"
         verbose_name_plural = "اللجان"
 
@@ -211,6 +214,7 @@ class OperationalPlanItems(models.Model):
     def __str__(self):
         return self.code or f"بند {self.id}"
     class Meta:
+        db_table = 'coredata_operationalplanitems'
         verbose_name = "بند خطة تشغيلية"
         verbose_name_plural = "بنود الخطة التشغيلية"
 
@@ -234,6 +238,7 @@ class Student(models.Model):
     def __str__(self):
         return f"{self.name_ar} ({self.grade}/{self.section})"
     class Meta:
+        db_table = 'coredata_student'
         verbose_name = "طالب"
         verbose_name_plural = "الطلاب"
         ordering = ['grade', 'section', 'name_ar']

@@ -10,7 +10,7 @@ if _db_url and '+psycopg2' in _db_url:
 # --- PRODUCTION SETTINGS FOR RENDER (PostgreSQL) ---
 
 # Turn off DEBUG for production once verified
-DEBUG = False
+DEBUG = True
 
 # Set a proper SECRET_KEY from environment variable
 SECRET_KEY = os.environ.get('SECRET_KEY', 'your-fallback-secret-key-change-me')
