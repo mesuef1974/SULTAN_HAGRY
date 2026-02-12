@@ -4,6 +4,8 @@ import environ
 import os
 from django.utils.translation import gettext_lazy as _
 
+import dj_database_url
+
 # Initialize environ
 env = environ.Env(
     DEBUG=(bool, False)
@@ -21,6 +23,14 @@ SECRET_KEY = env('SECRET_KEY', default='dev-secret-key-change-me')
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
+# Database configuration
+DATABASES = {
+    'default': dj_database_url.config(
+        default=env('DATABASE_URL', default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"),
+        conn_max_age=600,
+    )
+}
+
 # --- REBUILDING THE APP ---
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -37,9 +47,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_htmx',
     'theme',
+    'cloudinary_storage',
+    'cloudinary',
     'rangefilter',
     'import_export',
     'health_check',
+    'simple_history',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_htmx.middleware.HtmxMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -87,6 +101,9 @@ LOCALE_PATHS = [
 TIME_ZONE = 'Asia/Qatar'
 USE_I18N = True
 USE_TZ = True
+
+LOGIN_URL = '/admin/login/'
+LOGIN_REDIRECT_URL = '/'
 
 STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

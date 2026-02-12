@@ -16,14 +16,9 @@ if RENDER_EXTERNAL_HOSTNAME:
 
 # 2. Database (PostgreSQL)
 # Render provides DATABASE_URL automatically
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
-        conn_max_age=600,
-        conn_health_checks=True,
-        ssl_require=True,
-    )
-}
+# We use the configuration from base.py, but we can override or add prod-specific params here if needed.
+DATABASES['default']['conn_health_checks'] = True
+DATABASES['default']['ssl_require'] = True
 
 # 3. Static Files (WhiteNoise)
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
@@ -31,10 +26,16 @@ MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# 4. Media Files
-# Render filesystem is ephemeral (lost on restart). 
-# You MUST use S3/Cloudinary for persistent media.
-MEDIA_ROOT = '/var/data/media' # Render Disk path (if using Render Disk) or tmp
+# 4. Media Files (Cloudinary for persistence)
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# Media root not needed for Cloudinary but kept for reference
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # 5. Security Headers
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

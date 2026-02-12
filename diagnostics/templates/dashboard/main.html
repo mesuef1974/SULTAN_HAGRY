@@ -1,0 +1,24 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<div id="content-main">
+    <h1>{{ welcome_message }}</h1>
+    <p>This is your professional dashboard. You can manage the operational plan and evidence documents from the sidebar.</p>
+    
+    <div class="module">
+        <table style="width:100%">
+            <caption>
+                <a href="#" class="section" title="Quick Stats">Quick Statistics</a>
+            </caption>
+            <tr>
+                <th scope="row">System Status</th>
+                <td><span style="color: green;">● Online (PostgreSQL)</span></td>
+            </tr>
+            <tr>
+                <th scope="row">Security Layer</th>
+                <td><span style="color: blue;">Historical Records Active</span></td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock %}
